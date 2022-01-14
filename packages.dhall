@@ -116,5 +116,5 @@ in  upstream
       , repo =
           "https://github.com/newlandsvalley/purescript-pqueue.git"
       , version =
-          "a36a4fdb45f056431e03d7cf2d30f180bb882c18"
+          "2cf01f73db57455095c1efb5b19f26dc5cd620e2"
       }

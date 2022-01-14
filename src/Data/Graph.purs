@@ -1,6 +1,6 @@
 module Data.Graph
   ( AdjacencyList
-  , Graph
+  , Graph(..)
   , empty
   , isEmpty
   , fromAdjacencyList

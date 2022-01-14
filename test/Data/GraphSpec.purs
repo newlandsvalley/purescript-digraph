@@ -5,7 +5,7 @@ import Prelude
 import Data.Array (elem) as A
 import Data.List (fromFoldable, (!!))
 import Data.Maybe (Maybe(..), fromJust)
-import Data.Map (empty, isEmpty) as M
+import Data.Map (Map(..), empty, isEmpty) as M
 import Data.Newtype (wrap, unwrap)
 import Data.Tuple (Tuple(..))
 import Partial.Unsafe (unsafePartial)
@@ -16,21 +16,28 @@ import Data.Graph
 
 graphSpec :: Spec Unit
 graphSpec = describe "Graph" do
-  let edges = fromFoldable $
-    [ Tuple 'A' (fromFoldable [Tuple 'B' 1, Tuple 'C' 2])
-    , Tuple 'B' (fromFoldable [Tuple 'A' 1, Tuple 'D' 3])
-    , Tuple 'C' (fromFoldable [Tuple 'A' 2, Tuple 'D' 4])
-    , Tuple 'D' (fromFoldable [Tuple 'B' 3, Tuple 'C' 4])
-    , Tuple 'E' (fromFoldable [Tuple 'F' 1])
-    , Tuple 'F' (fromFoldable [Tuple 'E' 1])
-    , Tuple 'G' (fromFoldable [])
-    ]
+  let 
+    edges = fromFoldable $    
+      [ Tuple 'A' (fromFoldable [Tuple 'B' 1, Tuple 'C' 2])
+      , Tuple 'B' (fromFoldable [Tuple 'A' 1, Tuple 'D' 3])
+      , Tuple 'C' (fromFoldable [Tuple 'A' 2, Tuple 'D' 4])
+      , Tuple 'D' (fromFoldable [Tuple 'B' 3, Tuple 'C' 4])
+      , Tuple 'E' (fromFoldable [Tuple 'F' 1])
+      , Tuple 'F' (fromFoldable [Tuple 'E' 1])
+      , Tuple 'G' (fromFoldable [])
+      ]
 
   let graph = fromAdjacencyList edges
-
+  
   describe "empty" do
     it "returns an empty graph" do
-      M.isEmpty (unwrap $ empty :: Graph Int Int) `shouldEqual` true
+      let 
+        -- why does this work but not Graph Int Int?
+        emptyGraph :: M.Map Int (M.Map Int Int)
+        emptyGraph = unwrap empty
+      M.isEmpty emptyGraph `shouldEqual` true
+      -- M.isEmpty (unwrap $ empty :: Graph Int Int) `shouldEqual` true
+      
 
   describe "isEmpty" do
     it "returns an empty graph" do
